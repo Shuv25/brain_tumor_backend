@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual env
+venv/
+
+# IDE files
+.vscode/
+.idea/
+
+
+#env file
+.env
+
+# Uploads / Reports
+uploads/
+reports/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+models/
+
+https://drive.google.com/drive/folders/1hGfe9QdtPMWW0K2R30JTv3ij-VuneoFm?usp=sharing
+
+
