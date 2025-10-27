@@ -1,5 +1,6 @@
 from utils.image_processing import process_image
 from flask import Blueprint, request, jsonify
+from dotenv import load_dotenv
 import google.generativeai as genai
 import os
 import onnxruntime as ort
