@@ -3,6 +3,7 @@ from flask import Blueprint, request, jsonify
 from dotenv import load_dotenv
 import google.generativeai as genai
 import os
+import requests
 import onnxruntime as ort
 import numpy as np
 import uuid
@@ -42,6 +43,19 @@ logger = logging.getLogger(__name__)
 
 # Constants
 MODEL_PATH = os.path.join("models", "brain_tumor_classifier.onnx")
+MODEL_URL = "https://huggingface.co/shuvsut/efficientv2Lonnx/resolve/main/brain_tumor_classifier.onnx"
+if not os.path.exists(MODEL_PATH):
+    os.makedirs("models", exist_ok=True)
+    logger.info("Downloading ONNX model from Hugging Face...")
+    response = requests.get(MODEL_URL)
+    if response.status_code == 200:
+        with open(MODEL_PATH, "wb") as f:
+            f.write(response.content)
+        logger.info("Model downloaded successfully.")
+    else:
+        logger.error(f"Failed to download model. HTTP {response.status_code}")
+        raise RuntimeError("Could not download model from Hugging Face.")
+
 UPLOAD_FOLDER = "uploads"
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'webp'}
 MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB
