@@ -1,5 +1,6 @@
 from utils.image_processing import process_image
 from flask import Blueprint, request, jsonify
+import google.generativeai as genai
 import os
 import onnxruntime as ort
 import numpy as np
@@ -24,8 +25,12 @@ def clean_ai_json_response(response: str):
         print("Error:", e)
         return None
 
-# Configure Gemini
-genai.configure(api_key="AIzaSyCRlze7lEnO4tH6Yj-jRZdQZAroC96BZmQ")
+load_dotenv()
+
+genai_api_key = os.getenv("GEMINI_API_KEY")
+if not genai_api_key:
+    raise EnvironmentError("Missing GEMINI_API_KEY in .env file")
+genai.configure(api_key=genai_api_key)
 
 # Flask Blueprint
 interface_bp = Blueprint('interface', __name__)
