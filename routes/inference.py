@@ -6,7 +6,6 @@ import numpy as np
 import uuid
 import logging
 from werkzeug.utils import secure_filename
-import google.generativeai as genai
 from PIL import Image
 import json
 import re
